@@ -20,6 +20,8 @@ BuildRequires:  libopenssl-devel
 BuildRequires:  libedit-devel
 BuildRequires:  systemd-devel
 BuildRequires:  postgresql-devel
+# BuildRequires:  msgpack-devel # TODO unresolvable in SLES builder on OBS?
+# BuildRequires:  valgrind-devel # TODO unresolvable in SLES builder on OBS?
 BuildRequires:  gcc-c++
 BuildRequires:  flex
 BuildRequires:  bison
@@ -39,8 +41,8 @@ Fluent Bit is a high performance and multi platform Log Forwarder.
 cd build
 cmake ../\
     -DCMAKE_BUILD_TYPE=RelWithDebInfo\
-    -DFLB_SHARED_LIB=On\
-    -DFLB_IN_SYSTEMD=On\
+    -DFLB_ALL=On\
+    -DFLB_TESTS_RUNTIME=On\
     -DFLB_RELEASE=On
 
 #
