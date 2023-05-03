@@ -6,7 +6,7 @@
 
 Name:           fluent-bit
 Version:        2.0.11
-Release:        52
+Release:        54
 Summary:        Fast data collector for Linux
 License:        Apache-2.0
 Group:          System/Daemons
@@ -74,6 +74,7 @@ install -D -m 0644 %{_dest_dir}/usr/local/etc/fluent-bit/parsers.conf %{buildroo
 install -D -m 0644 %{_dest_dir}/usr/local/etc/fluent-bit/plugins.conf %{buildroot}/etc/fluent-bit/plugins.conf
 install -D -m 0755 %{_dest_dir}/usr/local/lib64/fluent-bit/libfluent-bit.so %{buildroot}/lib64/fluent-bit/libfluent-bit.so
 
+install -d -m755 %{buildroot}%{_sbindir}/
 pushd %{buildroot}%{_sbindir}
 ln -s service rc%{name}
 popd
@@ -124,7 +125,10 @@ popd
 
 %changelog
 
-* Wed May 3 2023 Balázs Hasprai <balazs.hasprai@hbalazs.com> - 2.0.11-53
+* Wed May 3 2023 Balázs Hasprai <balazs.hasprai@hbalazs.com> - 2.0.11-54
+- Fix install step, create /usr/sbin dir
+
+* Wed May 3 2023 Balázs Hasprai <balazs.hasprai@hbalazs.com> - 2.0.11-54
 - Fix rclink "installed but unpackaged files"
 
 * Wed May 3 2023 Balázs Hasprai <balazs.hasprai@hbalazs.com> - 2.0.11-52
