@@ -74,7 +74,7 @@ install -D -m 0644 %{_dest_dir}/usr/local/etc/fluent-bit/parsers.conf %{buildroo
 install -D -m 0644 %{_dest_dir}/usr/local/etc/fluent-bit/plugins.conf %{buildroot}/etc/fluent-bit/plugins.conf
 install -D -m 0755 %{_dest_dir}/usr/local/lib64/fluent-bit/libfluent-bit.so %{buildroot}/lib64/fluent-bit/libfluent-bit.so
 
-pushd %{buildroot}%{_bindir}
+pushd %{buildroot}%{_sbindir}
 ln -s service rc%{name}
 popd
 
@@ -112,6 +112,7 @@ popd
 %defattr(-,root,root,-)
 "/usr/lib/systemd/system/fluent-bit.service"
 "/usr/bin/fluent-bit"
+"/usr/sbin/rcfluent-bit"
 "/lib64/fluent-bit/libfluent-bit.so"
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/%{name}/parsers.conf
@@ -122,6 +123,9 @@ popd
 %dir "/lib64/fluent-bit"
 
 %changelog
+
+* Wed May 3 2023 Balázs Hasprai <balazs.hasprai@hbalazs.com> - 2.0.11-53
+- Fix rclink "installed but unpackaged files"
 
 * Wed May 3 2023 Balázs Hasprai <balazs.hasprai@hbalazs.com> - 2.0.11-52
 - Add rclink in spec's install steps
