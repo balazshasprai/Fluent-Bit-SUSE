@@ -6,7 +6,7 @@
 
 Name:           fluent-bit
 Version:        2.0.11
-Release:        54
+Release:        55
 Summary:        Fast data collector for Linux
 License:        Apache-2.0
 Group:          System/Daemons
@@ -43,6 +43,7 @@ cmake ../\
     -DCMAKE_BUILD_TYPE=RelWithDebInfo\
     -DFLB_ALL=On\
     -DFLB_TESTS_RUNTIME=On\
+    -DFLB_WASM_STACK_PROTECT=On\
     -DFLB_RELEASE=On
 
 #
@@ -124,6 +125,9 @@ popd
 %dir "/lib64/fluent-bit"
 
 %changelog
+
+* Wed May 3 2023 Balázs Hasprai <balazs.hasprai@hbalazs.com> - 2.0.11-55
+- Enable WASM stack protection flag in cmake
 
 * Wed May 3 2023 Balázs Hasprai <balazs.hasprai@hbalazs.com> - 2.0.11-54
 - Fix install step, create /usr/sbin dir
