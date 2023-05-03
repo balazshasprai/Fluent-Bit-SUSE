@@ -6,10 +6,10 @@
 
 Name:           fluent-bit
 Version:        2.0.11
-Release:        0
+Release:        51
 Summary:        Fast data collector for Linux
 License:        Apache-2.0
-Group:          System Environment/Daemons
+Group:          System/Daemons
 Vendor:         Calyptia Inc.
 URL:            https://fluentbit.io/
 Source0:        fluent-bit-%{version}.tar.gz
@@ -63,10 +63,10 @@ install -d -m755 %{buildroot}%{_bindir}/
 
 install -d -m755 %{buildroot}/etc/fluent-bit
 
-install -d -m755 %{buildroot}/lib/systemd/system
+install -d -m755 %{buildroot}/usr/lib/systemd/system
 install -d -m755 %{buildroot}/lib64/fluent-bit
 
-install -c -m644 %{SOURCE1} %{buildroot}/lib/systemd/system/%{name}.service
+install -c -m644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/%{name}.service
 
 install -D -m 0755 %{_dest_dir}/usr/local/bin/%{name} %{buildroot}%{_bindir}/%{name}
 install -D -m 0644 %{_dest_dir}/usr/local/etc/fluent-bit/fluent-bit.conf %{buildroot}/etc/fluent-bit/fluent-bit.conf
@@ -106,17 +106,18 @@ install -D -m 0755 %{_dest_dir}/usr/local/lib64/fluent-bit/libfluent-bit.so %{bu
 ##
 ## file list ################################################
 ##
-#%license COPYING
 %defattr(-,root,root,-)
-"/lib/systemd/system/fluent-bit.service"
+"/usr/lib/systemd/system/fluent-bit.service"
 "/usr/bin/fluent-bit"
 "/lib64/fluent-bit/libfluent-bit.so"
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/%{name}/parsers.conf
 %config(noreplace) %{_sysconfdir}/%{name}/plugins.conf
 %dir "/etc/fluent-bit"
-%dir "/lib/systemd"
-%dir "/lib/systemd/system"
+%dir "/usr/lib/systemd"
+%dir "/usr/lib/systemd/system"
 %dir "/lib64/fluent-bit"
 
 %changelog
+* Wed May 3 2023 Balázs Hasprai <balazs.hasprai@hbalazs.com> - 2.0.11-51
+- Touch up spec file, remove commented license macro, fix /lib->/usr/lib dirs
