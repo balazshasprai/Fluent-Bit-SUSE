@@ -6,7 +6,7 @@
 
 Name:           fluent-bit
 Version:        2.0.11
-Release:        58
+Release:        60
 Summary:        Fast data collector for Linux
 License:        Apache-2.0
 Group:          System/Daemons
@@ -22,7 +22,7 @@ BuildRequires:  systemd-devel
 BuildRequires:  postgresql-devel
 # BuildRequires:  msgpack-devel # TODO unresolvable in SLES builder on OBS?
 # BuildRequires:  valgrind-devel # TODO unresolvable in SLES builder on OBS?
-BuildRequires:  gcc-c++
+BuildRequires:  gcc11-c++
 BuildRequires:  flex
 BuildRequires:  bison
 BuildRequires:  cmake
@@ -39,6 +39,9 @@ Fluent Bit is a high performance and multi platform Log Forwarder.
 ## build ####################################################
 ##
 cd build
+## cmake doesn't find gcc11 / g++-11 by default for some reason
+export CC=/usr/bin/gcc-11
+export CXX=/usr/bin/g++-11
 cmake ../\
     -DCMAKE_BUILD_TYPE=RelWithDebInfo\
     -DFLB_ALL=On\
@@ -125,6 +128,9 @@ popd
 %dir "/lib64/fluent-bit"
 
 %changelog
+
+* Wed May 5 2023 Balázs Hasprai <balazs.hasprai@hbalazs.com> - 2.0.11-60
+- Use gcc11 to compensate for performance degradation caused by security flags
 
 * Wed May 3 2023 Balázs Hasprai <balazs.hasprai@hbalazs.com> - 2.0.11-58
 - Revert to WASM stack protection flag in cmake
