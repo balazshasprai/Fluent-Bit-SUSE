@@ -6,7 +6,7 @@
 
 Name:           fluent-bit
 Version:        2.0.11
-Release:        60
+Release:        62
 Summary:        Fast data collector for Linux
 License:        Apache-2.0
 Group:          System/Daemons
@@ -39,9 +39,12 @@ Fluent Bit is a high performance and multi platform Log Forwarder.
 ## build ####################################################
 ##
 cd build
-## cmake doesn't find gcc11 / g++-11 by default for some reason
+## cmake doesn't find gcc-11 / g++-11 by default for some reason
 export CC=/usr/bin/gcc-11
 export CXX=/usr/bin/g++-11
+## export flags to build and link as Position Independent Executable
+export CFLAGS="-fPIE"
+export LDFLAGS="-pie"
 cmake ../\
     -DCMAKE_BUILD_TYPE=RelWithDebInfo\
     -DFLB_ALL=On\
@@ -128,6 +131,9 @@ popd
 %dir "/lib64/fluent-bit"
 
 %changelog
+
+* Wed May 5 2023 Balázs Hasprai <balazs.hasprai@hbalazs.com> - 2.0.11-62
+- Build and link with -fPIE and -pie flags
 
 * Wed May 5 2023 Balázs Hasprai <balazs.hasprai@hbalazs.com> - 2.0.11-60
 - Use gcc11 to compensate for performance degradation caused by security flags
